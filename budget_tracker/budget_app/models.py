@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.db import models
 
 class Transaction(models.Model):
     # Choices for transaction type
@@ -29,3 +30,11 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.description}: {self.amount} ({self.transaction_type})"
+
+class Budget(models.Model):
+    name = models.CharField(max_length=255)
+    amount = models.FloatField()
+    # Add any other fields you need
+
+    def __str__(self):
+        return self.name

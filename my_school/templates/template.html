@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+
+    <h2>Course List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Teacher</th>
+                <th>Subject</th>
+                <th>Students Enrolled</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td><strong>{{ course.name }}</strong></td>
+                    <td>{{ course.teacher.name }}</td>
+                    <td>{{ course.teacher.subject }}</td>
+                    <td>
+                        <ul>
+                            {% for student in course.students.all %}
+                                <li>{{ student.name }} (Age: {{ student.ages }})</li>
+                            {% empty %}
+                                <li>No students enrolled.</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No courses available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

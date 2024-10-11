@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction List</title>
+</head>
+<body>
+    <h1>All Transactions</h1>
+    <a href="{% url 'transaction_create' %}">Add New Transaction</a>
+
+    <!-- Search form -->
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search by category or description" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Transaction table -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+            
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.transaction_type }}</td>
+                <td>{{ transaction.category }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.date }}</td>
+                <td>
+                    <a href="{% url 'transaction_update' transaction.pk %}">Edit</a>
+                    <a href="{% url 'transaction_delete' transaction.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No transactions found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
